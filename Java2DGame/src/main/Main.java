@@ -1,5 +1,7 @@
 package main;
 
+import entity.BrunoException;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,7 +19,18 @@ public class Main {
         window.setTitle("Java2DGame");
 
         // Spieloberfläche Hinzufügen
-        GamePanel gamePanel = new GamePanel();
+
+//        GamePanel gamePanel;
+//        try {
+//            gamePanel = new GamePanel();
+//            window.add(gamePanel);
+//
+//        } catch (BrunoException brunoException){
+//            System.out.println("BrunoException abgefangen!");
+//        }
+
+        GamePanel gamePanel;
+        gamePanel = new GamePanel();
         window.add(gamePanel);
 
         // passt die Größe des Fensters an dessen Inhalt an und validiert das Fenster

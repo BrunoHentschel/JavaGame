@@ -1,5 +1,7 @@
 package main;
 
+import entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     // Vergrößere auf 48x48
-    final int tileSize = originalTileSize * scale;
+    public final int tileSize = originalTileSize * scale;
 
     // Spalten Anzahl für Raster Definieren
     final int maxScreenCol = 16;
@@ -32,8 +34,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyH = new KeyHandler();
 
-
     Thread gameThread;
+
+    Player player = new Player(this,keyH);
 
     // Anfangsposition von Spieler Bestimmen
     int playerX = 100;
@@ -87,42 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
     @SuppressWarnings("PointlessBooleanExpression")
     public void update() {
 
-        boolean up = keyH.upPressed;
-        boolean down = keyH.downPressed;
-        boolean left = keyH.leftPressed;
-        boolean right = keyH.rightPressed;
-
-        if (left && right) {
-            left = false;
-            right = false;
-        }
-
-        if (up && down) {
-            up = false;
-            down = false;
-        }
-
-        if (up && right) {
-            playerY -= playerSpeed;
-            playerX += playerSpeed;
-        } else if (up && left) {
-            playerY -= playerSpeed;
-            playerX -= playerSpeed;
-        } else if (down && right) {
-            playerY += playerSpeed;
-            playerX += playerSpeed;
-        } else if (down && left) {
-            playerY += playerSpeed;
-            playerX -= playerSpeed;
-        } else if (up == true) {
-            playerY -= playerSpeed;
-        } else if (down == true) {
-            playerY += playerSpeed;
-        } else if (left == true) {
-            playerX -= playerSpeed;
-        } else if (right == true) {
-            playerX += playerSpeed;
-        }
+        player.update();
 
     }
 
@@ -131,9 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(Color.WHITE);
-
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2);
 
         g2.dispose();
     }
