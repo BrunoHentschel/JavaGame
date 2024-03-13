@@ -10,6 +10,9 @@ import java.io.IOException;
 
 public class Player extends Entity{
 
+    public final int screenX;
+    public final int screenY;
+
     GamePanel gp;
     KeyHandler keyH;
 
@@ -17,14 +20,17 @@ public class Player extends Entity{
         this.gp = gp;
         this.keyH = keyH;
 
+        screenX = gp.screenWidth / 2 - (gp.tileSize/2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize/2);
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
 
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 15;
+        worldY = gp.tileSize * 10;
         speed = 4;
         direction = "down";
     }
@@ -74,32 +80,32 @@ public class Player extends Entity{
 
             if (up && right) {
                 direction = "right";
-                y -= speed;
-                x += speed;
+                worldY -= speed;
+                worldX += speed;
             } else if (up && left) {
                 direction = "left";
-                y -= speed;
-                x -= speed;
+                worldY -= speed;
+                worldX -= speed;
             } else if (down && right) {
                 direction = "right";
-                y += speed;
-                x += speed;
+                worldY += speed;
+                worldX += speed;
             } else if (down && left) {
                 direction = "left";
-                y += speed;
-                x -= speed;
+                worldY += speed;
+                worldX -= speed;
             } else if (up) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (down) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if (left) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             } else if (right) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
             spriteCounter++;
@@ -157,7 +163,7 @@ public class Player extends Entity{
 
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
     }
 
