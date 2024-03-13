@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,15 +23,16 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale;
 
     // Spalten Anzahl für Raster Definieren
-    final int maxScreenCol = 16;
+    public final int maxScreenCol = 16;
 
     // Zeilen Anzahl für Raster Definieren
-    final int maxScreenRow = 12;
+    public final int maxScreenRow = 12;
 
     // Vorhandene Bildschirmgröße mit Fenstergröße verrechnen
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
 
+    TileManager tileM = new TileManager(this);
 
     KeyHandler keyH = new KeyHandler();
 
@@ -98,6 +100,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+
+        tileM.draw(g2);
 
         player.draw(g2);
 
